@@ -47,6 +47,8 @@ jobs:
 
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
+        env:
+          R_CRAN_REPOS: "https://packagemanager.posit.co/cran/__linux__/jammy/latest"        
         with:
           cache-version: 1
 
