@@ -6,7 +6,7 @@ cleanup_pipeline<- function() {
     file.path(hydroclimate_path, c("Evapotranspiration_RAW", "Precipitation_RAW")),
     file.path(outputs[["Validation"]], "Validation_RAW"),
     file.path(outputs[["Runoff"]], "Runoff_RAW"),
-    file.path(terrain_path, c("DEM_acu.tif", "DEM_filled.tif", "dem_base.tif")),
+    file.path(terrain_path, c("DEM_acu.tif", "DEM_filled.tif", "dem_base.tif", "twi_real.tif", "flow_acc.tif", "slope.tif")),
     list.files(path = file.path(outputs[["Validation"]]), pattern = "\\.tif$", full.names = TRUE)
   )
   for(f in files_to_remove) {
@@ -18,7 +18,7 @@ cleanup_pipeline<- function() {
       }
     }
   }
-  dev.off()
+
   cat(paste0("\n❇️❇️❇️ The terrain-based SCSCN Runoff pipeline for ", gsub("_", " ", polygon_name), " from ", start_date, " to ", end_date, " successfully ran!\n\n📂 Data is located in: ", folder_pipeline, "\n\n💌 Give me a feedback at yyara@agh.edu.pl\n\n"))
   
 }

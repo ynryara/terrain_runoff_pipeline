@@ -9,6 +9,9 @@ end_date <- as.Date("2020-06-25")
 pipeline_polygon <- c("Łęczyński", "Chełmski", "Włodawski")
 #pipeline_polygon <- "../user_polygon.shp"
 
+# Set your own DEM path (optional)
+#user_DEM <- "../user_DEM.tif"
+
 #And load the pipeline modules and functions
 source("pipeline/global.R")
 

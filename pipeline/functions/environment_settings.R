@@ -3,6 +3,18 @@ environment_settings<- function(variable) {
   if(variable == "Terrain_features") {
     lapply(file.path(c(terrain_path, GIS_path)), dir.create, recursive = TRUE, showWarnings = FALSE)
     normalized_shp()
+    tryCatch(
+      {
+        dem_validation() 
+      },
+      error = function(e) {
+        message(e$message)
+        if (dir.exists(folder_pipeline)) {
+          unlink(folder_pipeline, recursive = TRUE, force = TRUE)
+        }
+        stop("🛑 Pipeline halted due to DEM validation failure.", call. = FALSE)
+      }
+    )
   } else if (variable == "Soil_constants") {
     dir.create(file.path(soil_path), recursive = TRUE)
   } else if (variable == "Hydroclimate_variables") {

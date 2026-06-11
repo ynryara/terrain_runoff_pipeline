@@ -1,15 +1,18 @@
-topo_wet_index<- function() {
+topo_wet_index <- function() {
   
-  dem_path <- file.path(terrain_path, "DEM.tif") 
+  dem_path <- file.path(terrain_path, "DEM.tif")
   dem_filled <- file.path(terrain_path, "DEM_filled.tif")
-  invisible(capture.output(
-    wbt_fill_depressions(dem_path, dem_filled, verbose = FALSE)
-  ))
-  depth_rast <- rast(dem_filled) - rast(dem_path)
-  depth_rast[depth_rast < 0.1] <- 0
-  weight <- log1p(depth_rast)
-  T_norm <- (weight - global(weight, "min", na.rm=T)[1,1]) / 
-    (global(weight, "max", na.rm=T)[1,1] - global(weight, "min", na.rm=T)[1,1])
+  wbt_fill_depressions(dem_path, dem_filled)
+  flow_acc <- file.path(terrain_path, "flow_acc.tif")
+  wbt_d_inf_flow_accumulation(dem_filled, flow_acc, log = FALSE)
+  slope <- file.path(terrain_path, "slope.tif")
+  wbt_slope(dem_filled, slope)
+  twi_path <- file.path(terrain_path, "twi_real.tif")
+  wbt_wetness_index(flow_acc, slope, twi_path)
+  twi_rast <- rast(twi_path)
+  twi_min <- global(twi_rast, "min", na.rm=TRUE)[1,1]
+  twi_max <- global(twi_rast, "max", na.rm=TRUE)[1,1]
+  T_norm <- (twi_rast - twi_min) / (twi_max - twi_min)
   pipeline_output(T_norm, "TopographicWet_Index", 0, 1, 1)
 
 }

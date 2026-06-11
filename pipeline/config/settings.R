@@ -43,4 +43,3 @@ plot_options <- list(
 )
 
 dir.create(file.path(outputs[["Validation"]]))
-pdf(file.path(outputs[["Validation"]], "Pipeline_Rplots.pdf"), width=12, height=9)

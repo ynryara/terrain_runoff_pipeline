@@ -24,10 +24,8 @@ clean_names <- function(x) {
   x <- gsub("[^[:alnum:]]", "_", x)    
   return(x)
 }
-
 if (all(!grepl("\\.shp", pipeline_polygon))) {
   powiay_list= read.csv("powiaty_library.csv", encoding = "UTF-8")
-  pipeline_polygon=strsplit(pipeline_polygon, ",")[[1]]
   if(length(pipeline_polygon) == 1) {
     polygon_name <- clean_names(pipeline_polygon)
   } else if (length(pipeline_polygon) == 2) {
@@ -40,4 +38,3 @@ if (all(!grepl("\\.shp", pipeline_polygon))) {
   polygon_name <- "User_polygon"
   polygon_mode= "user"  
 }
- 
