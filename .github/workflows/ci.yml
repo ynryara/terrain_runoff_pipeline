@@ -1,4 +1,4 @@
-name: Hydroclimate Pipeline CI
+name: Terrain-based Runoff Pipeline CI
 
 on:
   push:
@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      R_CRAN_REPOS: "https://packagemanager.posit.co/cran/__linux__/jammy/latest"
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -45,16 +49,14 @@ jobs:
             libcurl4-openssl-dev \
             libarchive-dev
 
-      - name: Setup renv
-        uses: r-lib/actions/setup-renv@v2
-        env:
-          R_CRAN_REPOS: "https://packagemanager.posit.co/cran/__linux__/jammy/latest"        
-        with:
-          cache-version: 1
+      - name: Restore renv package cache
+        run: |
+          Rscript -e "install.packages('renv', repos='https://packagemanager.posit.co/cran/__linux__/jammy/latest')"
+          Rscript -e "options(repos = c(CRAN = 'https://packagemanager.posit.co/cran/__linux__/jammy/latest')); renv::restore(repos = c(CRAN = 'https://packagemanager.posit.co/cran/__linux__/jammy/latest'))"
 
       - name: Install WhiteboxTools Engine
         run: |
-          Rscript -e "if (!requireNamespace('whitebox', quietly = TRUE)) install.packages('whitebox', repos='https://cloud.r-project.org')"
+          Rscript -e "if (!requireNamespace('whitebox', quietly = TRUE)) install.packages('whitebox', repos='https://packagemanager.posit.co/cran/__linux__/jammy/latest')"
           Rscript -e "whitebox::wbt_install()"
 
       - name: Run Pipeline
