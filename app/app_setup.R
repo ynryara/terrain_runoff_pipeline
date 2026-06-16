@@ -1,0 +1,26 @@
+# Setting the pipeline environment
+invisible(capture.output(source("renv/activate.R"), type = "message"))
+.libPaths(c("renv/library/windows/R-4.5/x86_64-w64-mingw32", .libPaths()))
+
+library(terra)
+library(shiny)
+library(shinythemes)
+library(shinyjs)
+library(shinyWidgets)
+library(leaflet)
+library(zip)
+library(paletteer)
+
+powiaty_data <<- read.csv("powiaty_library.csv")
+source("app/ui.R")
+source("app/server.R")
+source("app/app_constants.R")
+source("app/helpers/error_handler.R")
+source("app/helpers//output_settings.R")
+source("app/helpers/pipeline_output_parser.R")
+source("app/helpers/ui_helpers.R")
+source("app/inputs/input_observers.R")
+source("app/inputs/input_settings.R")
+source("app/map/webmap.R")
+
+options(shiny.maxRequestSize = MAX_UPLOAD_SIZE_MB * 1024^2)

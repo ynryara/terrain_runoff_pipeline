@@ -18,7 +18,11 @@ cleanup_pipeline<- function() {
       }
     }
   }
-
+  if (file.exists("pipeline/assets/gis_meta/DEM_Poland.tif")) {
+    file.remove(file.path("pipeline/assets/gis_meta/DEM.tif"))
+    file.rename(from = "pipeline/assets/gis_meta/DEM_Poland.tif", to = "pipeline/assets/gis_meta/DEM.tif")
+  }
+  dev.off()
   cat(paste0("\n❇️❇️❇️ The terrain-based SCSCN Runoff pipeline for ", gsub("_", " ", polygon_name), " from ", start_date, " to ", end_date, " successfully ran!\n\n📂 Data is located in: ", folder_pipeline, "\n\n💌 Give me a feedback at yyara@agh.edu.pl\n\n"))
   
 }

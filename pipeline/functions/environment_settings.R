@@ -2,17 +2,15 @@ environment_settings<- function(variable) {
   
   if(variable == "Terrain_features") {
     lapply(file.path(c(terrain_path, GIS_path)), dir.create, recursive = TRUE, showWarnings = FALSE)
-    normalized_shp()
     tryCatch(
       {
+        shp_validation() 
         dem_validation() 
       },
       error = function(e) {
+        unlink(folder_pipeline, recursive = TRUE, force = TRUE)
         message(e$message)
-        if (dir.exists(folder_pipeline)) {
-          unlink(folder_pipeline, recursive = TRUE, force = TRUE)
-        }
-        stop("🛑 Pipeline halted due to DEM validation failure.", call. = FALSE)
+        stop("🛑 Pipeline halted due to input validation failure.", call. = FALSE)
       }
     )
   } else if (variable == "Soil_constants") {

@@ -1,6 +1,6 @@
 dem_validation <- function() {
   
-  if (exists("user_DEM")) {  
+  if (!is.null(user_DEM)) {
     if (!file.exists(user_DEM)) {
       stop("❌ The specified DEM file does not exist in the provided path.")
     }
@@ -13,9 +13,9 @@ dem_validation <- function() {
       stop("❌ The DEM file is corrupted, incomplete, or not in a valid raster format.")
     }
     crs_dem <- crs(dem_raster, describe = TRUE)
-    is_2180 <- !is.null(crs_dem$code) && crs_dem$code == "2180"
+    is_2180 <- isTRUE(!is.null(crs_dem$code) && crs_dem$code == "2180")
     if (!is_2180) {
-      if (!grepl("EPSG.*2180|ETRS89 / Poland CS92", crs(dem_raster))) {
+      if (is.na(crs_string) || crs_string == "" || !grepl("EPSG.*2180|ETRS89 / Poland CS92", crs_string)) {
         stop("❌ Invalid Coordinate Reference System. The DEM must be projected in EPSG:2180 (ETRS89 / Poland CS92).")
       }
     }
@@ -28,8 +28,9 @@ dem_validation <- function() {
     if (!is.related(clip_base_ext_poly, dem_extent, "within")) {
       stop("❌ DEM coverage must be at least 20% larger than the pipeline polygon area.")
     }
+    file.rename(from = "pipeline/assets/gis_meta/DEM.tif", to = "pipeline/assets/gis_meta/DEM_Poland.tif")
     writeRaster(dem_raster, file.path("pipeline/assets/gis_meta/DEM.tif"), overwrite = TRUE)
-    message("✅ User DEM successfully integrated.")
+    message("\n✅ User DEM successfully integrated")
     rm(user_DEM, envir = .GlobalEnv)
   }
   
