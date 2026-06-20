@@ -4,7 +4,7 @@
 Built-in the AGH University of Science and Technology of Kraków<br>
 <img src="pipeline/assets/media/logo.svg" alt="Pipeline Diagram" width="300" />
 
-Ⓜ️ yyara@agh.edu.pl<br><br>
+💌 yyara@agh.edu.pl<br><br>
 
 <h3>🚀 New Update</h3>
 Version 4 of the pipeline is now available! <br><br>
