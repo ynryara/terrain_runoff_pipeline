@@ -124,49 +124,7 @@ This wrapper receives parameters using `commandArgs()`, initializes the pipeline
 
 The core computational workflow can be summarized as follows:
 
-```text
-                User
-                  │
-                  ▼
-      ┌──────────────────────┐
-      │  Shiny Application   │
-      └──────────┬───────────┘
-                 │
-                 ▼
-     prepare_pipeline_inputs()
-                 │
-                 ▼
-        run_pipeline_cli.R
-                 │
-                 ▼
-           source(global.R)
-                 │
-      ┌──────────┴──────────┐
-      │                     │
-      ▼                     ▼
- Terrain Features     Hydroclimate Variables
-      │                     │
-      └──────────┬──────────┘
-                 ▼
-         Soil Constants Module
-                 │
-                 ▼
-           SCS-CN Estimation
-                 │
-                 ▼
-      Terrain-based Runoff Model
-                 │
-                 ▼
-         Validation Procedures
-                 │
-                 ▼
-     GeoTIFF + SHP + Statistics
-                 │
-                 ▼
-      Web Visualization & ZIP
-```
-
----
+<img src="Pipeline_components.jpg" width="700" /> 
 
 ## Core modules
 
