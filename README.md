@@ -16,11 +16,12 @@ Version 4 of the pipeline is now available! <br><br>
 ⚡<strong>New explanatory variables incorporated:</strong>  🆕 Hydrological Soil Groups (HSG) 🆕 CORINE Land Cover.  <br><br>
 ⚡<strong>Antecedent Moisture Condition (AMC): </strong> Calculation as a proxy for spatio-temporal soil moisture variability in runoff estimation.  <br><br>
 ⚡<strong>Terrain features:</strong> 🆕 Topographic Wetness Index (TWI) 🆕 Terrain-based Runoff.  <br><br>
-⚡<strong>Updated pipeline resolution and coverage:</strong> <br>
+⚡<strong>Updated pipeline resolution and coverage:</strong><br>
    - Spatial resolution: 200 m pixel size.  <br>
    - Spatial extent: Entire Poland (380 powiats) + user-defined vector areas. <br> 
-   - Temporal coverage: Daily time series from 1 January 1960 to one week before the current date.  <br><br>
-⚡<strong>Pipeline refactoring:</strong>  <br>
+   - Temporal coverage: Daily time series from 1 January 1960 to one week before the current date.  <br>
+
+⚡<strong>Pipeline refactoring:</strong><br>
    - Improved modular structure.  <br>
    - Enhanced scalability and usability. <br>  
    - More reproducible and standardized functions.  <br>
